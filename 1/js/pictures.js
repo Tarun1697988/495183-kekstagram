@@ -1,6 +1,5 @@
 'use strict';
 
-var photos = [];
 var comments = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -24,7 +23,7 @@ var getRandomNumber = function (max, min) {
   }
   return Math.round(Math.random() * (max - min)) + min;
 };
-var getUrl = function () {
+var getUrl = function (i) {
   return 'photos/' + (i + 1) + '.jpg';
 };
 var getLikes = function () {
@@ -38,21 +37,23 @@ var getComments = function () {
   var arrayOfCommentsLength = getRandomNumber(10);
   for (var i = 0; i < arrayOfCommentsLength; i++) {
     arrayOfComments[i] = getNewComment();
-    if (getRandomNumber(2)) {
-      arrayOfComments[i] += getNewComment();
-    }
   }
   return arrayOfComments;
 };
 var getDescription = function () {
   return descriptions[getRandomNumber(descriptions.length)];
 };
-for (var i = 0; i < 25; i++) {
-  photos[i] = {};
-  photos[i].url = getUrl(i);
-  photos[i].likes = getLikes();
-  photos[i].comments = getComments();
-  photos[i].description = getDescription();
+
+var createPhotos = function () {
+  var photos = [];
+  for (var i = 0; i < 25; i++) {
+    photos[i] = {};
+    photos[i].url = getUrl(i);
+    photos[i].likes = getLikes();
+    photos[i].comments = getComments();
+    photos[i].description = getDescription();
+  }
+  return photos;
 }
 // На основе данных, созданных в предыдущем пункте и шаблона #picture создайте DOM-элементы, соответствующие фотографиям и заполните их данными из массива
 var pictureTemplate = document.querySelector('#picture')
